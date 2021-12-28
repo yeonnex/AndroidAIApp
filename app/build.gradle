@@ -10,8 +10,8 @@ android {
         applicationId "com.yeonnex.aiapp"
         minSdk 26
         targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        versionCode 1010028
+        versionName "1.01.0028"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

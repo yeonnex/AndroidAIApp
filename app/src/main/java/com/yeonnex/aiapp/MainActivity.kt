@@ -7,10 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureException
-import androidx.camera.core.Preview
+import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -18,6 +15,7 @@ import com.google.common.util.concurrent.ListenableFuture
 import com.yeonnex.aiapp.databinding.ActivityMainBinding
 import java.io.File
 import java.lang.Exception
+import java.nio.ByteBuffer
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ExecutorService
@@ -31,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     private var imageCapture: ImageCapture? = null
     private var outputDirectory: File? = null
     private var cameraExecutor: ExecutorService? = null
-
+    private var imageAnalysis: ImageAnalysis? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,6 +81,11 @@ class MainActivity : AppCompatActivity() {
             it.setSurfaceProvider(viewFinder.surfaceProvider)
         }
         imageCapture = ImageCapture.Builder().build() // 빌더 패턴
+        val imageAnalysis: ImageAnalysis? = ImageAnalysis.Builder().build().also {
+            it.setAnalyzer(cameraExecutor, LuminosityAnalyzer { luma ->
+                Log.d(TAG, "luminosity : $luma")
+            })
+        }
         val camaraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
         try{
@@ -126,10 +129,12 @@ class MainActivity : AppCompatActivity() {
                 finish()
             }
         }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         cameraExecutor?.shutdown()
     }
 }
+
+
+
+
