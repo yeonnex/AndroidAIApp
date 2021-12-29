@@ -2,6 +2,7 @@ package com.yeonnex.aiapp
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -36,6 +37,11 @@ class PhotoActivity : AppCompatActivity() {
             var imageUri = data?.data
             imageUri?.let {
                 Log.d(TAG, "image URI : ${uri2path(this, imageUri)}")
+            }
+            try {
+                var bimap: Bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
+                imageView.setImageBitmap(bitmap)
+            }catch (e:Exception) { Log.e(TAG, "getBitmapException ${e.message}", e)
             }
         }
     }
