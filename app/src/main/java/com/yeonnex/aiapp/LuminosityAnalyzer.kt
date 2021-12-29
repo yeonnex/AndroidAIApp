@@ -21,6 +21,6 @@ class LuminosityAnalyzer (private val listener: LumaListener) : ImageAnalysis.An
 
         listener(luma)
         image.close()
-
     }
+
 }

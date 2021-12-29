@@ -21,7 +21,6 @@ import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-
 class MainActivity : AppCompatActivity() {
 
     companion object {
@@ -36,20 +35,20 @@ class MainActivity : AppCompatActivity() {
     private lateinit var outputDirectory: File
     private lateinit var cameraExecutor: ExecutorService
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        if (allPermissionsGranted())
-            startCamera()
-        else
-            ActivityCompat.requestPermissions(
-                this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
-
-        camera_capture_button.setOnClickListener {  takePhoto()  }
-        outputDirectory = getOutputDirectory()
-        cameraExecutor = Executors.newSingleThreadExecutor()
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setContentView(R.layout.activity_main)
+//
+//        if (allPermissionsGranted())
+//            startCamera()
+//        else
+//            ActivityCompat.requestPermissions(
+//                this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
+//
+//        camera_capture_button.setOnClickListener {  takePhoto()  }
+//        outputDirectory = getOutputDirectory()
+//        cameraExecutor = Executors.newSingleThreadExecutor()
+//    }
 
     private fun takePhoto() {
         val imageCapture = imageCapture ?: return
